@@ -41,7 +41,7 @@ public class InputData {
 			ioe.printStackTrace();
 		}
 		
-		System.out.println(inputData.get());
+		System.out.println("Don't forget to call a function");
 		
 	}	
 	
@@ -153,10 +153,38 @@ public class InputData {
 	 * @return La pair de coordonnée de la Warehouse spécifiée
 	 */
 	public Integer[] getCoordOfWarehouse(int idWarehouse) {
-		
+		System.out.println("La warehouse d'id : "+idWarehouse+" se trouve aux coordonnées : "+getCoordAllWarehouses().get(idWarehouse));
 		return getCoordAllWarehouses().get(idWarehouse);
 	}
 	
+	/**
+	 * 
+	 * @param idWarehouse
+	 * @return ArrayList<Integer> de Tous les produits d'une Warehouse
+	 */
+	public ArrayList<Integer> getAllProductsOfAWarehouse(int idWarehouse) {
+		ArrayList<Integer> products = new ArrayList<Integer>();
+		for (int i=7+getNumberTypeProducts()+((2+getNumberTypeProducts())*idWarehouse); 
+				i<(7+getNumberTypeProducts()+((2+getNumberTypeProducts())*idWarehouse))+getNumberTypeProducts(); i++){
+			products.add(2+Data.get(i));
+		}
+		System.out.println("La warehouse d'id : "+idWarehouse+" a en stock : "+products.toString());
+		return products;
+	}
+	
+	/**
+	 * 
+	 * @param idProduct
+	 * @param idWarehouse
+	 * @return Le stock d'un produit spécifique d'une warehouse spécifique
+	 */
+	public int getStockOfProductsOfTypeFromWarehouse(int idProduct, int idWarehouse) {
+		System.out.println("Le produit d'id : "+idProduct+" de la warehouse : "
+				+idWarehouse+" est présent en : "+getAllProductsOfAWarehouse(idWarehouse)
+				.get(idProduct)+" exemplaires");
+		return getAllProductsOfAWarehouse(idWarehouse).get(idProduct);
+	}
 
+	
 	
 }
