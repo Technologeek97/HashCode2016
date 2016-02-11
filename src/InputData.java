@@ -26,7 +26,7 @@ public class InputData {
 			try {
 				String line;
 				while ((line = buff.readLine()) != null) {
-					System.out.println(line);
+//					System.out.println(line);
 					String[] bruteDataTab = line.split(" ");
 					for (String s : bruteDataTab) {
 						inputData.Data.add(Integer.parseInt(s));
@@ -40,9 +40,8 @@ public class InputData {
 		}catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
-		System.out.println("Don't forget to call a function");
-		
+	
+		System.out.println(inputData.getNumberOrders());
 	}	
 	
 	public int getTotalRow() {
@@ -91,7 +90,7 @@ public class InputData {
 	 * @return Nombre de types de produits
 	 */
 	public int getNumberTypeProducts() {
-		System.out.println("There are : "+Data.get(5)+" products");
+//		System.out.println("There are : "+Data.get(5)+" products");
 		return Data.get(5);
 	}
 	
@@ -104,23 +103,17 @@ public class InputData {
 		for (int i=1; i<=getNumberTypeProducts(); i++) {
 			weights.add(Data.get(5+i));
 		}
-		System.out.println("Weight of all products are : "+weights.toString());
+		//System.out.println("Weight of all products are : "+weights.toString()+"\n");
 		return weights;
 	}
 	
 	/**
-	 * 
 	 * @param idProduct
 	 * @return Retourne le poids du produit : idProduct
 	 */
 	public int getWeightOfProduct(int idProduct) {
-		int nbrProd = getNumberTypeProducts(); 
-		if (idProduct>nbrProd || idProduct<nbrProd) {
-			System.out.println("Erreur : produit non contenu dans la liste");
-			return -1;
-		}
 		System.out.println("The weight of the id["+idProduct+"] is "
-				+Data.get(getWeightAllTypeProducts().get(idProduct)));
+				+getWeightAllTypeProducts().get(idProduct));
 		return Data.get(getWeightAllTypeProducts().get(idProduct));
 	}
 	
@@ -129,9 +122,9 @@ public class InputData {
 	 * @return Retourne le nombre de Warehouse
 	 */
 	public int getNumberWarehouse() {
-		System.out.println("There are : "
-				+Data.get(6+getNumberTypeProducts())+" warehouses");
-		return Data.get(5+getNumberTypeProducts());
+		/*System.out.println("There are : "
+				+Data.get(6+getNumberTypeProducts())+" warehouses");*/
+		return Data.get(6+getNumberTypeProducts());
 	}
 	
 	/**
@@ -140,10 +133,11 @@ public class InputData {
 	 */
 	public ArrayList<Integer[]> getCoordAllWarehouses() {
 		ArrayList<Integer[]> coordWarehouse = new ArrayList<Integer[]>();
-		for(int i=5+getNumberTypeProducts()+2; i<(5+getNumberTypeProducts()+2)+((2+getNumberTypeProducts())*getNumberWarehouse()); i+=2+getNumberTypeProducts()) {
+		for(int i=5+getNumberTypeProducts()+2; i<(5+getNumberTypeProducts()+2)+(getNumberTypeProducts())*getNumberWarehouse(); i+=2+getNumberTypeProducts()) {
+			System.out.println(Data.get(i)+" "+Data.get(i+1));
 			coordWarehouse.add(new Integer[]{Data.get(i), Data.get(i+1)});
 		}
-		System.out.println("Coord of all warehouses : "+coordWarehouse.toString());
+//		System.out.println("Coord of all warehouses : "+coordWarehouse.toString());
 		return coordWarehouse;
 	}
 	
@@ -153,10 +147,28 @@ public class InputData {
 	 * @return La pair de coordonnée de la Warehouse spécifiée
 	 */
 	public Integer[] getCoordOfWarehouse(int idWarehouse) {
-		System.out.println("La warehouse d'id : "+idWarehouse+" se trouve aux coordonnées : "+getCoordAllWarehouses().get(idWarehouse));
+		System.out.println("La warehouse d'id : "+idWarehouse+" se trouve aux coordonnées : "+getCoordAllWarehouses().get(idWarehouse)[0]+","+getCoordAllWarehouses().get(idWarehouse)[1]);
 		return getCoordAllWarehouses().get(idWarehouse);
 	}
 	
+	/**
+	 * 
+	 * @param idWarehouse
+	 * @return la coordonnée X de la warehouse spécifiée
+ 	 */
+	public int getCoordXOfWarehouse(int idWarehouse) {
+		return getCoordOfWarehouse(idWarehouse)[0];
+	}
+	
+	/**
+	 * 
+	 * @param idWarehouse
+	 * @return la coordonnée Y de la warehouse spécifiée
+ 	 */
+	public int getCoordYOfWarehouse(int idWarehouse) {
+		return getCoordOfWarehouse(idWarehouse)[1];
+	}
+
 	/**
 	 * 
 	 * @param idWarehouse
@@ -185,6 +197,13 @@ public class InputData {
 		return getAllProductsOfAWarehouse(idWarehouse).get(idProduct);
 	}
 
-	
+	/**
+	 * 
+	 * @return Le nombre total de commandes
+	 */
+	public int getNumberOrders() {
+		System.out.println("The total number of orders is : "+Data.get(9+getNumberTypeProducts()+((2+getNumberTypeProducts())*getNumberWarehouse())+1));
+		return Data.get(9+getNumberTypeProducts()+((2+getNumberTypeProducts())*getNumberWarehouse())+1);
+	}
 	
 }
