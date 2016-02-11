@@ -18,7 +18,7 @@ public class Drone
 		this.liste_type_produit=new ArrayList<Integer>();
 	}
 	
-	int ajout(int type_produit)
+	ajout(int type_produit)
 	{
 		liste_type_produit.add(type_produit);
 		poid_porté+=/*TODO poid produit*/0;
@@ -31,4 +31,30 @@ public class Drone
 		poid_porté-=/*TODO poid produit*/0;
 		return poid_porté;
 	}
+    
+    String prend(int iDdrone, int idEnt , int idProd, int nb){
+	String msg;
+	int nomb=0;
+	for(int i=0; i<nb; i++){
+	    if(entrepots.contient(idProd)){
+		    entrepots.get(idEnt).retrait(idProd);
+		    this.retire(idProd);
+		    nomb++;   
+	    }
+	}	
+	    msg=idDrone+" L "+idEnt+" "+idProd+" "+nb+"\n";
+	    return msg;
+    }
+
+String delivre(int iDdrone, int idCom , int idProd, int nb){
+	String msg;
+	int nomb=0;
+	for(int i=0; i<nb; i++){
+	    this.retire(idProd);
+	    nomb++;   
+	}	
+	    msg=idDrone+" L "+idCom+" "+idProd+" "+nb+"\n";
+	    return msg;
+    }
+
 }
